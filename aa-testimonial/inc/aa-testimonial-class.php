@@ -19,6 +19,15 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 			return (isset ( $this->custom["aa_testimonial_is_featured"][0] ) &&  $this->custom["aa_testimonial_is_featured"][0] == '1' ?   true : false );
 		}
 
+		public function canBeFeatured()
+		{
+			if( !get_option( 'aa_testimonial_featured_allowed' ) )
+			{
+				return false;
+			}
+			return true;
+		}
+
 		public function getTestimonialDate()
 		{
 			if( !get_option( 'aa_testimonial_date_allowed' ) ){
@@ -78,8 +87,37 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 
 		public function getTestimonialPdf()
 		{
+			if( !get_option( 'aa_testimonial_pdf_allowed'))
+			{
+				return false;
+			}
 			return (isset ( $this->custom["aa_testimonial_pdf"][0] ) ? esc_url ($this->custom["aa_testimonial_pdf"][0] ) : '' );	
-		}		
+		}	
+
+
+		/**
+		 * Has the user enabled any of the extra
+		 * testimonial data fields?
+		 * @return Bool $additionalFieldsAllowed
+		 */
+		public function anyAdditionalFieldsAllowed()
+		{
+
+			if( (get_option( 'aa_testimonial_pdf_allowed') ) or 
+					(get_option( 'aa_testimonial_quote_allowed' ) ) or
+					(get_option( 'aa_testimonial_profile_image_allowed' )) or
+					(get_option( 'aa_testimonial_job_allowed' ) ) or
+					(get_option( 'aa_testimonial_location_allowed' )) or
+					(get_option( 'aa_testimonial_linkedin_allowed' )) or
+					(get_option( 'aa_testimonial_name_allowed' )) or
+					(get_option( 'aa_testimonial_date_allowed' )) or
+					(get_option( 'aa_testimonial_featured_allowed' ))
+			){
+				return true;
+			}
+
+			return false;
+		}	
 
 	}
 

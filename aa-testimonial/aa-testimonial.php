@@ -49,7 +49,7 @@ define( 'AA_TESTIMONIAL_PATH', plugin_dir_path(__FILE__) );
 define( 'AA_TESTIMONIAL_BASENAME', plugin_basename( __FILE__ ) );
 
 
-require AA_TESTIMONIAL_PATH.'frontend/aa-testimonial-class.php';
+require AA_TESTIMONIAL_PATH.'inc/aa-testimonial-class.php';
 require AA_TESTIMONIAL_PATH.'inc/aa-testimonial-post-type.php';
 
 if(is_admin()){    
@@ -68,7 +68,6 @@ if(is_admin()){
 function aa_testimonial_enqueue_scripts(){
     wp_enqueue_style('aa-competition', AA_TESTIMONIAL_FRONT_URL . 'frontend/style/aa-testimonial.css');
     wp_enqueue_script('jquery');
-    // wp_enqueue_script('aa-testimonial', AA_TESTIMONIAL_FRONT_URL . 'frontend/js/testimonial.js', array('jquery'), AA_TESTIMONIAL, true );
 }
 add_action('wp_enqueue_scripts', 'aa_testimonial_enqueue_scripts');
 

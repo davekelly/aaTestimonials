@@ -33,13 +33,15 @@ if ( ! class_exists( 'AATestimonial_Admin' ) ) {
         }
 
         function options_init() {
+            register_setting( 'aa_testimonial_options', 'aa_testimonial_featured_allowed' );                        
             register_setting( 'aa_testimonial_options', 'aa_testimonial_date_allowed' );                        
             register_setting( 'aa_testimonial_options', 'aa_testimonial_name_allowed' );         
             register_setting( 'aa_testimonial_options', 'aa_testimonial_linkedin_allowed' );         
             register_setting( 'aa_testimonial_options', 'aa_testimonial_location_allowed' );         
             register_setting( 'aa_testimonial_options', 'aa_testimonial_job_allowed' );    
             register_setting( 'aa_testimonial_options', 'aa_testimonial_profile_image_allowed' );         
-            register_setting( 'aa_testimonial_options', 'aa_testimonial_quote_allowed' );         
+            register_setting( 'aa_testimonial_options', 'aa_testimonial_quote_allowed' );       
+            register_setting( 'aa_testimonial_options', 'aa_testimonial_pdf_allowed' );         
         }
         
         
@@ -72,6 +74,15 @@ if ( ! class_exists( 'AATestimonial_Admin' ) ) {
                             </td>
                         </tr>
                         
+                        <tr>
+                          <td>
+                            <label for="aa_testimonial_featured_allowed">Allow featured testimonials?</label>
+                          </td>
+                          <td>
+                            <input name="aa_testimonial_featured_allowed" id="aa_testimonial_featured_allowed" type="checkbox" value="1" <?php checked( get_option( 'aa_testimonial_featured_allowed' ), '1', $echo = true )?> />  
+                          </td>
+                        </tr>
+
                         <tr>
                           <td>
                             <label for="aa_testimonial_date_allowed">Collect Testimonial Date?</label>
@@ -132,6 +143,15 @@ if ( ! class_exists( 'AATestimonial_Admin' ) ) {
                           </td>
                           <td>
                             <input name="aa_testimonial_quote_allowed" id="aa_testimonial_quote_allowed" type="checkbox" value="1" <?php checked( get_option('aa_testimonial_quote_allowed'), '1', $echo = true )?> />  
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <label for="aa_testimonial_pdf_allowed">Collect link to PDF case-study?</label>
+                          </td>
+                          <td>
+                            <input name="aa_testimonial_pdf_allowed" id="aa_testimonial_pdf_allowed" type="checkbox" value="1" <?php checked( get_option('aa_testimonial_pdf_allowed'), '1', $echo = true )?> />  
                           </td>
                         </tr>
 

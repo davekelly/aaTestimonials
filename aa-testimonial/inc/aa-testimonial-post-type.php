@@ -13,16 +13,16 @@ function register_aa_testimonial_type() {
 	register_post_type( 'testimonial', 
 	 	
 		array('labels' => array(
-        			'name' => __('Case Studies', 'post type general name'), 
-        			'singular_name' => __('Case Study', 'post type singular name'), 
+        			'name' => __('Testimonials', 'post type general name'), 
+        			'singular_name' => __('Testimonial', 'post type singular name'), 
         			'add_new' => __('Add New', 'custom post type item'),
-        			'add_new_item' => __('Add New Case Study'), 
+        			'add_new_item' => __('Add New Testimonial'), 
         			'edit' => __( 'Edit' ), 
-        			'edit_item' => __('Edit Case Study'), 
-        			'new_item' => __('New Case Study'), 
-        			'view_item' => __('View Case Studies'),
-        			'search_items' => __('Search Case Studies'), 
-        			'not_found' =>  __('No Case Studies found.'), 
+        			'edit_item' => __('Edit Testimonial'), 
+        			'new_item' => __('New Testimonial'), 
+        			'view_item' => __('View Testimonials'),
+        			'search_items' => __('Search Testimonials'), 
+        			'not_found' =>  __('No Testimonials found.'), 
         			'not_found_in_trash' => __('Nothing found in Trash'), 
         			'parent_item_colon' => ''
 			), /* end of arrays */			
@@ -105,14 +105,25 @@ function aa_testimonial_details(){
   ?>
 
   <table>
-    <tr valign="top">
-      <td>
-        <label for="aa_testimonial_is_featured">Is this Testimonial "Featured"?</label>
-      </td>
-      <td>
-        <input name="aa_testimonial_is_featured" id="aa_testimonial_is_featured" type="checkbox" value="1" <?php checked( $aa_testimonial_is_featured, '1', $echo = true )?> />  
-      </td>
-    </tr>
+
+    <?php if( !$testimonial->anyAdditionalFieldsAllowed()): ?>
+      <tr>
+        <td colspan="2">
+          <p>No additional fields required...</p>
+        </td>
+      </tr>
+    <?php endif; ?>
+    <?php if( $testimonial->canBeFeatured()): ?>
+      <tr valign="top">
+        <td>
+          <label for="aa_testimonial_is_featured">Is this Testimonial "Featured"?</label>
+        </td>
+        <td>
+          <input name="aa_testimonial_is_featured" id="aa_testimonial_is_featured" type="checkbox" value="1" <?php checked( $aa_testimonial_is_featured, '1', $echo = true )?> />  
+        </td>
+      </tr>
+    <?php endif; ?>
+
     <?php if( get_option( 'aa_testimonial_date_allowed' )): ?>
       <tr valign="top">
         <td>
@@ -210,20 +221,22 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <tr valign="top">
-      <td>
-        <label for="aa_testimonial_pdf">
-            Case Study PDF file
-          </label>
-          <br/>
-          <small>
-            Upload this to the Media Library and paste the link to it here
-          </small>
-        </td>
+    <?php if( $aa_testimonial_pdf !== false ): ?>
+      <tr valign="top">
         <td>
-          <textarea name="aa_testimonial_pdf" id="aa_testimonial_pdf" rows="4" cols="60"><?php echo $aa_testimonial_pdf; ?></textarea>
-        </td>
-      </tr>
+          <label for="aa_testimonial_pdf">
+              Testimonial PDF file
+            </label>
+            <br/>
+            <small>
+              Upload this to the Media Library and paste the link to it here
+            </small>
+          </td>
+          <td>
+            <input name="aa_testimonial_pdf" id="aa_testimonial_pdf" size="60" value="<?php echo $aa_testimonial_pdf; ?>" />
+          </td>
+        </tr>
+      <?php endif; ?>
   </table>
   <?php
 }
