@@ -19,18 +19,10 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 			return (isset ( $this->custom["aa_testimonial_is_featured"][0] ) &&  $this->custom["aa_testimonial_is_featured"][0] == '1' ?   true : false );
 		}
 
-		public function canBeFeatured()
-		{
-			if( !get_option( 'aa_testimonial_featured_allowed' ) )
-			{
-				return false;
-			}
-			return true;
-		}
 
 		public function getTestimonialDate()
 		{
-			if( !get_option( 'aa_testimonial_date_allowed' ) ){
+			if( ! $this->isOptionAllowed('date') ){
 				return false;
 			}
 			return (isset ( $this->custom["aa_testimonial_date"][0] ) ? wp_kses_post( trim( $this->custom["aa_testimonial_date"][0] )): '' );
@@ -38,7 +30,7 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 
 		public function getTestimonialName()
 		{
-			if( !get_option( 'aa_testimonial_name_allowed' ) ){
+			if( !$this->isOptionAllowed('name' ) ){
 				return false;
 			}
 			return (isset ( $this->custom["aa_testimonial_name"][0] ) ? wp_kses_post( trim ( $this->custom["aa_testimonial_name"][0] )): '' );
@@ -46,7 +38,7 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 
 		public function getTestimonialLinkedIn()
 		{
-			if( !get_option( 'aa_testimonial_linkedin_allowed' ) ){
+			if( !$this->isOptionAllowed('linkedin' ) ){
 				return false;
 			}
 			return (isset ( $this->custom["aa_testimonial_linkedin"][0] ) ? esc_url( $this->custom["aa_testimonial_linkedin"][0] ): '' );
@@ -54,7 +46,7 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 
 		public function getTestimonialLocation()
 		{
-			if( !get_option( 'aa_testimonial_location_allowed' ) ){
+			if( !$this->isOptionAllowed('location' ) ){
 				return false;
 			}
 			return (isset ( $this->custom["aa_testimonial_location"][0] ) ? wp_kses_post( trim( $this->custom["aa_testimonial_location"][0] ) ): '' );	
@@ -93,6 +85,17 @@ if ( ! class_exists( 'AATestimonial' ) ) {
 			}
 			return (isset ( $this->custom["aa_testimonial_pdf"][0] ) ? esc_url ($this->custom["aa_testimonial_pdf"][0] ) : '' );	
 		}	
+
+
+
+		public function isOptionAllowed( $optionName )
+		{
+			if( !get_option( 'aa_testimonial_'. $optionName .'_allowed' ) )
+			{
+				return false;
+			}
+			return true;
+		}
 
 
 		/**

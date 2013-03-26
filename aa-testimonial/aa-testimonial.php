@@ -73,7 +73,7 @@ add_action('wp_enqueue_scripts', 'aa_testimonial_enqueue_scripts');
 
 
 // When activated...
-register_activation_hook(__FILE__, array( 'AATestimonial_Plugin_Admin', 'on_activate' ) );
+// register_activation_hook(__FILE__, array( 'AATestimonial_Plugin_Admin', 'on_activate' ) );
 
 // Get rid of everything on de-activation / deletion
 register_deactivation_hook( __FILE__, array( 'AATestimonial_Plugin_Admin', 'on_deactivate' ) );

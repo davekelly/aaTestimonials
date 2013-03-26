@@ -74,17 +74,6 @@ add_action('admin_head-post-new.php','change_thumbnail_html');
 add_action('admin_head-post.php','change_thumbnail_html');
 
 
-/**
- * Replace the heading on the Featured Image
- * Meta box in Testimonial Admin
- */
-function aa_testimonial_change_image_box()
-{
-    remove_meta_box( 'postimagediv', 'testimonial', 'side' );
-    add_meta_box('postimagediv', __('Company Logo'), 'post_thumbnail_meta_box', 'testimonial', 'side', 'default');
-}
-add_action('do_meta_boxes', 'aa_testimonial_change_image_box');
-
 function aa_testimonial_details(){
 
   echo '<input type="hidden" name="aa_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
@@ -113,7 +102,7 @@ function aa_testimonial_details(){
         </td>
       </tr>
     <?php endif; ?>
-    <?php if( $testimonial->canBeFeatured()): ?>
+    <?php if( $testimonial->isOptionAllowed('featured')): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_is_featured">Is this Testimonial "Featured"?</label>
@@ -124,7 +113,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if( get_option( 'aa_testimonial_date_allowed' )): ?>
+    <?php if( $testimonial->isOptionAllowed('date') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_date">Date:</label>
@@ -135,7 +124,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if(get_option( 'aa_testimonial_name_allowed') ): ?>
+    <?php if($testimonial->isOptionAllowed('name') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_name">
@@ -148,7 +137,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if(get_option( 'aa_testimonial_linkedin_allowed') ): ?>
+    <?php if($testimonial->isOptionAllowed('linkedin') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_linkedin">
@@ -161,7 +150,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if(get_option( 'aa_testimonial_location_allowed') ): ?>
+    <?php if($testimonial->isOptionAllowed('location') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_location">
@@ -174,7 +163,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if(get_option( 'aa_testimonial_job_allowed') ): ?>
+    <?php if($testimonial->isOptionAllowed('job') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_job">
@@ -189,7 +178,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if(get_option( 'aa_testimonial_profile_image_allowed') ): ?>
+    <?php if($testimonial->isOptionAllowed('profile_image') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_profile_image">
@@ -204,7 +193,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
   
-    <?php if(get_option( 'aa_testimonial_quote_allowed') ): ?>
+    <?php if($testimonial->isOptionAllowed('quote') ): ?>
     <tr valign="top">
       <td>
         <label for="aa_testimonial_quote">
@@ -221,7 +210,7 @@ function aa_testimonial_details(){
       </tr>
     <?php endif; ?>
 
-    <?php if( $aa_testimonial_pdf !== false ): ?>
+    <?php if( $testimonial->isOptionAllowed('pdf') ): ?>
       <tr valign="top">
         <td>
           <label for="aa_testimonial_pdf">
@@ -262,15 +251,42 @@ function aa_save_testimonial_details(){
         return $post->ID;
     }
 
-  update_post_meta($post->ID, "aa_testimonial_is_featured", $_POST["aa_testimonial_is_featured"]);
-  update_post_meta($post->ID, "aa_testimonial_date", $_POST["aa_testimonial_date"]);
-  update_post_meta($post->ID, "aa_testimonial_name", $_POST["aa_testimonial_name"]);
-  update_post_meta($post->ID, "aa_testimonial_linkedin", $_POST["aa_testimonial_linkedin"]);
-  update_post_meta($post->ID, "aa_testimonial_location", $_POST["aa_testimonial_location"]);
-  update_post_meta($post->ID, "aa_testimonial_job", $_POST["aa_testimonial_job"]);
-  update_post_meta($post->ID, "aa_testimonial_profile_image", $_POST["aa_testimonial_profile_image"]);
-  update_post_meta($post->ID, "aa_testimonial_quote", $_POST["aa_testimonial_quote"]);
-  update_post_meta($post->ID, "aa_testimonial_pdf", $_POST["aa_testimonial_pdf"]);
+    $testimonial = new AATestimonial( $post->ID );
+
+    if( $testimonial->isOptionAllowed('featured') ){
+      update_post_meta($post->ID, "aa_testimonial_is_featured", $_POST["aa_testimonial_is_featured"]);    
+    }
+  
+    if( $testimonial->isOptionAllowed('date')){
+      update_post_meta($post->ID, "aa_testimonial_date", $_POST["aa_testimonial_date"]);    
+    }
+
+    if( $testimonial->isOptionAllowed('name')){
+      update_post_meta($post->ID, "aa_testimonial_name", $_POST["aa_testimonial_name"]);    
+    }
+
+    if( $testimonial->isOptionAllowed('linkedin')){
+      update_post_meta($post->ID, "aa_testimonial_linkedin", $_POST["aa_testimonial_linkedin"]);    
+    }
+    if( $testimonial->isOptionAllowed('location')){
+      update_post_meta($post->ID, "aa_testimonial_location", $_POST["aa_testimonial_location"]);    
+    }
+
+    if( $testimonial->isOptionAllowed('job')){
+      update_post_meta($post->ID, "aa_testimonial_job", $_POST["aa_testimonial_job"]);    
+    }
+
+    if( $testimonial->isOptionAllowed('profile_image')){
+      update_post_meta($post->ID, "aa_testimonial_profile_image", $_POST["aa_testimonial_profile_image"]);    
+    }
+  
+    if( $testimonial->isOptionAllowed('quote')){
+      update_post_meta($post->ID, "aa_testimonial_quote", $_POST["aa_testimonial_quote"]);    
+    }
+
+    if( $testimonial->isOptionAllowed('pdf')){
+      update_post_meta($post->ID, "aa_testimonial_pdf", $_POST["aa_testimonial_pdf"]);    
+    }
   
 
 }
