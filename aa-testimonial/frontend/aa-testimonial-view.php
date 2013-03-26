@@ -64,8 +64,6 @@ function aa_testimonial_featured( $showFeaturedCount = 3 )
 															'alt'	=> trim(strip_tags( get_the_title() )),
 															'title'	=> trim(strip_tags( get_the_title() )),
 									));	
-								}else{
-									echo '<img src="http://placehold.it/225x75" alt="'. get_the_title() . '" title="'.get_the_title().'" />';
 								}
 								?>
 							</h3>

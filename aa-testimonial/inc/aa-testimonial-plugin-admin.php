@@ -31,7 +31,7 @@ if ( !class_exists('Aa_Testimonial_Admin') ) {
 
             
             function register_settings_page() {                
-                add_submenu_page('options-general.php','Case Study Settings','Case Study Settings',$this->accesslvl, 'aa_testimonial_settings', array(&$this,'aa_testimonial_settings'));                   
+                add_submenu_page('options-general.php','Testimonial Settings','Testimonial Settings',$this->accesslvl, 'aa_testimonial_settings', array(&$this,'aa_testimonial_settings'));                   
             }
 
             function plugin_options_url() {
@@ -45,7 +45,7 @@ if ( !class_exists('Aa_Testimonial_Admin') ) {
                 static $this_plugin;
                 if( empty($this_plugin) ) $this_plugin = $this->filename;
                 if ( $file == $this_plugin ) {
-                        $settings_link = '<a href="' . $this->plugin_options_url() . '">' . __('AA Case Study Settings') . '</a>';
+                        $settings_link = '<a href="' . $this->plugin_options_url() . '">' . __('AA Testimonial Settings') . '</a>';
                         array_unshift( $links, $settings_link );
                 }
                 return $links;
@@ -72,14 +72,15 @@ if ( !class_exists('Aa_Testimonial_Admin') ) {
             
             
             /**
-             * All settings are left, except the username & password            
+             * Not removing any settings for this...
              */
             function on_deactivate(){
 
             }
 
             /**
-             * Remove/Delete everything 
+             * Remove/Delete all options
+             * Testimonial content not being deleted
              */
             function on_uninstall()
             {
@@ -89,11 +90,15 @@ if ( !class_exists('Aa_Testimonial_Admin') ) {
                     return;
 
                 // delete the stored settings
-                delete_option('aa_testimonial_gravity_form');
-                delete_option('aa_testimonial_facebook_app_id');
-                delete_option('aa_testimonial_use_facebook_open_graph');
-                delete_option('aa_testimonial_use_plugin_facebook_js');
-                delete_option('aa_testimonial_use_plugin_twitter_js');
+                delete_option( 'aa_testimonial_featured_allowed' );                        
+                delete_option( 'aa_testimonial_date_allowed' );                        
+                delete_option( 'aa_testimonial_name_allowed' );         
+                delete_option( 'aa_testimonial_linkedin_allowed' );         
+                delete_option( 'aa_testimonial_location_allowed' );         
+                delete_option( 'aa_testimonial_job_allowed' );    
+                delete_option( 'aa_testimonial_profile_image_allowed' );         
+                delete_option( 'aa_testimonial_quote_allowed' );       
+                delete_option( 'aa_testimonial_pdf_allowed' );
             }
 
 
