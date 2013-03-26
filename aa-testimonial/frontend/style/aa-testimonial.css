@@ -1,0 +1,46 @@
+/**
+ * 	Styling for aa-wp-competition plugin
+ */
+
+.alert-success{background: #DFF0D8; border-color: #D6E9C6; padding: 1em;}
+.aa-wp-competition-list{ padding: 1em; border: 1px solid #dbdbdb; background: #f4f4f4; margin: 0 0 1em; border-radius: 3px;	}
+	.aa-wp-competition-list.aa-wp-competition-is-active{background: #DFF0D8; border-color: #D6E9C6;}
+	#content .aa-wp-competition-list h3{margin: 0; padding: .25em 0; font-size: 1.5em;}
+	.aa-wp-competition-list-details{width: 60%; display: inline-block; *display: inline; zoom: 1;}
+			.aa-wp-competition-list-details ul, .aa-wp-competition-list-details ul li{list-style-type: none; margin-left: 0; padding-left: 0;}
+	.aa-wp-competition-list-meta{width: 39%; display: inline-block; vertical-align: top; margin-top: .5em; *display: inline; zoom: 1;}
+		.aa-wp-competition-list-social span{ display: inline-block; width: 45%; vertical-align: top; *display: inline; zoom: 1;} 
+			.aa-competition-enter{text-align: center; padding-top: 1em;}
+				a.aa-competition-entry-button{
+					padding: 1em 4em; text-align: center; text-decoration: none; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; font-size: 1em;
+					background-color: #337029;
+				    background-repeat: repeat-x;
+				    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7bcc6f", endColorstr="#317127");
+				    background-image: -khtml-gradient(linear, left top, left bottom, from(#7bcc6f), to(#317127));
+				  	background-image: -moz-linear-gradient(top, #7bcc6f, #317127);
+				  	background-image: -ms-linear-gradient(top, #7bcc6f, #317127);
+				  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7bcc6f), color-stop(100%, #317127));
+				  	background-image: -webkit-linear-gradient(top, #7bcc6f, #317127);
+				  	background-image: -o-linear-gradient(top, #7bcc6f, #317127);
+				  	background-image: linear-gradient(#7bcc6f, #317127);
+				  	border-color: #24531D;
+				  	color: #fff;
+				  	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.52);
+				}
+				a.aa-competition-entry-button:hover, a.aa-competition-entry-button:active{colour: #dbdbdb;}
+
+		.aa-competition-winner{padding: 1em 2em 1em 6em; border: 1px solid #dbdbdb; background: #DFF0D8 url(../img/Checkmark.png) no-repeat 1em 50%;}
+			#content .aa-competition-winner h4{margin: .25em 0; padding: 0; font-size: 1.25em; }
+			#content .aa-competition-winner p{margin-bottom: 0;}
+
+/* Single */ 
+	.aa-wp-competition-meta{padding: 1em; border-top: 1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb; background: #D9EDF7; margin: 1em 0;}
+		.aa-competition-dates{width: 49%; display: inline-block;}
+		.aa-wp-competition-social{width: 49%; text-align: right; display: inline-block; vertical-align: top; padding-top:1em; *display: inline; zoom: 1;}
+			.aa-wp-competition-social span{ display: inline-block;*display: inline; zoom: 1;}
+				.twitter-share-button { vertical-align: text-bottom }
+			.aa-competition-dates ul{list-style-type: none; }
+				.aa-competition-dates ul li{padding: .4em 0;}
+	.aa-wp-competition-entry-form{padding: 1em; max-width: 40em; border: 1px solid #dbdbdb; background: #f4f4f4; padding: 1em; margin: 1em auto 2em;}
+	#aa-wp-competition-fb-comments{padding: 1em 2em; margin: 0 auto; max-width: 42em;}
+		#aa-wp-competition-fb-comments h3{padding: 1em 0;}
