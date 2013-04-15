@@ -12,6 +12,7 @@ in the WordPress admin menu.
 ### Shortcodes 
 
 Features 2 shortcodes:
+
 1. [aa_testimonial_random] - display a single randomly selected testimonial
 2. [aa_testimonial_listing] - display a listing of all testimonials
 
