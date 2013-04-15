@@ -107,10 +107,6 @@ function aa_testimonial_featured( $showFeaturedCount = 3 )
 
 				<?php endwhile; ?>
 			</ul>
-		<?php else: ?>
-			<p class="alert alert-error">
-				No testimonials found...
-			</p>
 		<?php endif; ?>
 	</div>
 	<?php
@@ -120,10 +116,11 @@ function aa_testimonial_featured( $showFeaturedCount = 3 )
 /**
  * Display a single testimonial chosen at random. Testimonials
  * can be selected when the case study has a Quote attached to it.
- * 
+ *
+ * @param  $case_studies_page_id WordPress $id for the main listing page
  * @return [type] [description]
  */
-function aa_testimonial_random()
+function aa_testimonial_random( $case_studies_page_id = null, )
 {
 	$query = new WP_Query( array(	
 						'post_type' 		=> 'testimonial',
@@ -139,6 +136,9 @@ function aa_testimonial_random()
 						)
 				)
 			);
+	if( !$case_studies_page_id ){
+		$case_studies_page_id = 1; // 
+	}
 	while( $query->have_posts()): $query->the_post(); 
 		$testimonial = new AATestimonial( get_the_ID() );
 	?>
@@ -165,21 +165,21 @@ function aa_testimonial_random()
 					</strong>
 				</small>
 			</div>
-			<div class="callout-button">
-				<!-- View detailed Customer <br/>Success Stories -->
-                <a class="btn btn-primary btn-large" href="<?php echo get_permalink( 163 ); // Case Studies ?>">
-                    View Case Studies &raquo;
-                </a>
-                <br/>
-                <span>
-                	or <a href="<?php echo get_permalink( 597 ); ?>">Request a Demo Now</a>
-                </span>
-            </div>
+			<?php if( $case_studies_page_id ): ?>
+				<div class="callout-button">
+	                <a class="btn btn-primary btn-large" href="<?php echo get_permalink( $case_studies_page_id ); // Case Studies ?>">
+	                    View Testimonials &raquo;
+	                </a>
+	            </div>
+	        <?php endif; ?>
 		</div>
 
 	<?php
 	endwhile;
 }
+
+add_shortcode('aa_testimonial_random', 'aa_testimonial_random');
+
 
 
 /**
@@ -252,7 +252,7 @@ function aa_testimonial_listing( $echo = false )
 				$html .= '</div>'; 
 			else: 
 				$html .= '<div class="alert alert-warning">
-					<h3>No Case Studies found</h3>
+					<h3>No Testimonials found</h3>
 				</div>';
 			endif; 
 		$html .= '</div>	<!-- .aa-testimonial-archive -->'; 
